@@ -181,8 +181,11 @@
       const enteredPassword =
         document.getElementById("birthday-password").value;
 
-      if (enteredPassword === CORRECT_PASSWORD) {
-        document.getElementById("password-screen").remove();
+      
+if (enteredPassword === CORRECT_PASSWORD) {
+  document.getElementById("password-screen").remove();
+  document.querySelector("main.card").style.display = "none";
+  document.getElementById("cake-gate").style.display = "block";
       } else {
         document.getElementById("password-error").textContent =
           "รหัสยังไม่ถูกน้า ลองใหม่อีกครั้ง 💗";
@@ -193,6 +196,19 @@
     });
 </script>
 <!-- จบหน้าล็อกรหัสผ่าน -->
+<!-- หน้าคั่นเป่าเค้ก -->
+<div id="cake-gate" style="display:none; text-align:center; padding:30px 15px;">
+  <h1>🎂 Happy Birthday! 🎂</h1>
+  <p>หลับตาอธิษฐาน แล้วเป่าเทียนเลยนะ 💗</p>
+  <div style="font-size:65px; margin:25px;">🕯️🎂🕯️</div>
+  <button id="blow-first-cake" type="button"
+    style="padding:12px 24px; border:0; border-radius:25px; background:#e96d9e; color:white; font-size:16px; cursor:pointer;">
+    🌬️ เป่าเทียนเลย!
+  </button>
+  <p id="cake-gate-message"></p>
+</div>
+<!-- จบหน้าคั่นเป่าเค้ก -->
+
 
   <main class="card">
     <div class="heart">💗</div>
