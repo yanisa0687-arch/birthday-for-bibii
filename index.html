@@ -269,5 +269,226 @@
   </iframe>
   <p>กดเล่นเพลง แล้วอ่านคำอวยพรไปด้วยกันนะ 🎂</p>
 </div>
+
+<!-- 🎂 หมวดเป่าเค้กวันเกิด -->
+<style>
+  .cake-section {
+    margin: 35px auto;
+    padding: 28px 16px;
+    max-width: 500px;
+    text-align: center;
+    color: #a83f70;
+    background: linear-gradient(180deg, #fff3f8, #ffe4ef);
+    border-radius: 24px;
+    box-shadow: 0 8px 25px #c85d8520;
+  }
+
+  .cake-section h2 {
+    margin-bottom: 8px;
+  }
+
+  .cake-scene {
+    position: relative;
+    padding: 22px 0 8px;
+  }
+
+  .cake-candles {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    margin-bottom: -3px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .candle {
+    width: 12px;
+    height: 52px;
+    border-radius: 5px 5px 2px 2px;
+    background: repeating-linear-gradient(
+      135deg, #ff8db6 0 6px, #fff 6px 12px
+    );
+    position: relative;
+  }
+
+  .flame {
+    position: absolute;
+    width: 15px;
+    height: 23px;
+    background: #ffb52e;
+    border-radius: 50% 50% 45% 45%;
+    top: -24px;
+    left: -2px;
+    box-shadow: 0 0 14px #ffb52eaa;
+    animation: flicker .5s infinite alternate;
+  }
+
+  .flame::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    background: #fff5b5;
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+  }
+
+  .flame.out {
+    display: none;
+  }
+
+  .cake-top {
+    width: 190px;
+    height: 48px;
+    margin: auto;
+    background: #ffb5d0;
+    border-radius: 14px 14px 8px 8px;
+    border-bottom: 8px dotted #fff0f6;
+    box-sizing: border-box;
+  }
+
+  .cake-bottom {
+    width: 220px;
+    height: 65px;
+    margin: auto;
+    background: #e98bb3;
+    border-radius: 8px 8px 18px 18px;
+    border-bottom: 8px solid #d96f9b;
+    box-sizing: border-box;
+  }
+
+  .cake-plate {
+    width: 255px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px #a83f7020;
+  }
+
+  .cake-button {
+    margin-top: 22px;
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 30px;
+    background: #e96d9e;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px #e96d9e55;
+  }
+
+  .cake-button:hover {
+    background: #d94e87;
+    transform: translateY(-2px);
+  }
+
+  #cake-message {
+    min-height: 48px;
+    line-height: 1.8;
+    margin-top: 16px;
+    color: #a83f70;
+  }
+
+  .cake-heart {
+    position: fixed;
+    bottom: -30px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: heartUp 3s ease-out forwards;
+  }
+
+  @keyframes flicker {
+    from { transform: rotate(-5deg) scale(1); }
+    to { transform: rotate(5deg) scale(1.08); }
+  }
+
+  @keyframes heartUp {
+    to {
+      transform: translateY(-110vh) rotate(25deg);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .cake-bottom { width: 190px; }
+    .cake-top { width: 165px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flame { animation: none; }
+    .cake-heart { animation-duration: 1s; }
+  }
+</style>
+
+<section class="cake-section" id="birthday-cake">
+  <h2>🎂 Time to Make a Wish! 🎂</h2>
+  <p>หลับตาอธิษฐาน แล้วกดปุ่มเป่าเทียนเลยนะ 💗</p>
+
+  <div class="cake-scene">
+    <div class="cake-candles">
+      <div class="candle"><span class="flame"></span></div>
+      <div class="candle"><span class="flame"></span></div>
+      <div class="candle"><span class="flame"></span></div>
+    </div>
+    <div class="cake-top"></div>
+    <div class="cake-bottom"></div>
+    <div class="cake-plate"></div>
+  </div>
+
+  <button class="cake-button" id="blow-candles">
+    🌬️ เป่าเทียนเลย!
+  </button>
+
+  <div id="cake-message" aria-live="polite">
+    ขอพรได้เต็มที่เลยนะ ✨
+  </div>
+</section>
+
+<script>
+(function () {
+  const section = document.getElementById("birthday-cake");
+  if (!section) return;
+
+  const button = document.getElementById("blow-candles");
+  const message = document.getElementById("cake-message");
+  const flames = section.querySelectorAll(".flame");
+
+  button.addEventListener("click", function () {
+    flames.forEach(function (flame) {
+      flame.classList.add("out");
+    });
+
+    message.innerHTML =
+      "🎉 เย้! เป่าเทียนแล้ว 🎉<br>" +
+      "ขอให้คำอธิษฐานเป็นจริงทุกข้อเลยนะ 💖";
+
+    button.textContent = "💗 เป่าเทียนแล้ว!";
+    button.disabled = true;
+    button.style.opacity = "0.7";
+
+    const hearts = ["💗", "💕", "💖", "✨", "🌸"];
+
+    for (let i = 0; i < 22; i++) {
+      const heart = document.createElement("span");
+      heart.className = "cake-heart";
+      heart.textContent = hearts[
+        Math.floor(Math.random() * hearts.length)
+      ];
+      heart.style.left = Math.random() * 95 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 18) + "px";
+      heart.style.animationDelay = (Math.random() * 1.2) + "s";
+
+      document.body.appendChild(heart);
+
+      heart.addEventListener("animationend", function () {
+        heart.remove();
+      });
+    }
+  });
+})();
+</script>
+<!-- 🎂 จบหมวดเป่าเค้ก -->
 </body>
 </html>
