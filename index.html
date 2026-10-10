@@ -180,11 +180,10 @@
 
       const enteredPassword =
         document.getElementById("birthday-password").value;
-    
-if (enteredPassword === CORRECT_PASSWORD) {
-  document.getElementById("password-screen").remove();
-}
-} else {
+
+      if (enteredPassword === CORRECT_PASSWORD) {
+        document.getElementById("password-screen").remove();
+      } else {
         document.getElementById("password-error").textContent =
           "รหัสยังไม่ถูกน้า ลองใหม่อีกครั้ง 💗";
 
@@ -194,8 +193,6 @@ if (enteredPassword === CORRECT_PASSWORD) {
     });
 </script>
 <!-- จบหน้าล็อกรหัสผ่าน -->
-
-
 
   <main class="card">
     <div class="heart">💗</div>
